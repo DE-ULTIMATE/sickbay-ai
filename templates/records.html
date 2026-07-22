@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Medical Records</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+{% include 'navigation.html' %}
+
+<div class="card">
+
+
+<h1>📋 Medical Records</h1>
+
+
+<form method="POST">
+
+
+<input 
+name="student_id"
+placeholder="Student ID">
+
+
+<input 
+name="symptoms"
+placeholder="Symptoms">
+
+
+<input 
+name="diagnosis"
+placeholder="Diagnosis">
+
+
+<input 
+name="treatment"
+placeholder="Treatment">
+
+
+<button>
+Save Record
+</button>
+
+
+</form>
+
+
+
+<h2>Visit History</h2>
+
+
+<table>
+
+
+<tr>
+
+<th>Student</th>
+<th>Symptoms</th>
+<th>Diagnosis</th>
+<th>Treatment</th>
+<th>Date</th>
+
+</tr>
+
+
+
+{% for record in records %}
+
+
+<tr>
+
+<td>{{record[1]}}</td>
+
+<td>{{record[2]}}</td>
+
+<td>{{record[3]}}</td>
+
+<td>{{record[4]}}</td>
+
+<td>{{record[5]}}</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+
+</div>
+
+
+</body>
+
+</html>
