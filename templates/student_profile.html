@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile - {{ student.name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        .badge-active { background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .badge-expired { background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .badge-none { background-color: #6c757d; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .info-card { background: #f8f9fa; padding: 12px; border-radius: 6px; border: 1px solid #e9ecef; }
+        .verify-link { display: inline-block; font-size: 0.85em; color: #17a2b8; text-decoration: none; font-weight: bold; cursor: pointer; border: none; background: none; padding: 0; margin-top: 5px; }
+        .verify-link:hover { text-decoration: underline; }
+        
+        /* Modal Popup Styling */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-box { background: white; padding: 25px; border-radius: 8px; max-width: 400px; width: 90%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: relative; }
+        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; color: #aaa; font-weight: bold; }
+        .modal-close:hover { color: #000; }
+        .action-link { display: block; text-align: center; padding: 10px; background: #007bff; color: white; border-radius: 5px; text-decoration: none; margin-top: 10px; font-weight: bold; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f1f1f1; }
+        .actions { margin-top: 20px; display: flex; gap: 10px; }
+        .btn-action { text-decoration: none; padding: 10px 15px; border-radius: 5px; color: white; font-weight: bold; text-align: center; }
+        .btn-pdf { background-color: #007bff; }
+        .btn-edit { background-color: #ffc107; color: black; }
+        .btn-back { background-color: #6c757d; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>👨‍🎓 Student Profile: {{ student.name }}</h2>
+        <span>ID: {{ student.student_id }}</span>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-card"><strong>Class:</strong> {{ student.class_name }}</div>
+        <div class="info-card"><strong>Age / Gender:</strong> {{ student.age }} yrs / {{ student.gender }}</div>
+        <div class="info-card"><strong>Parent Contact:</strong> {{ student.parent_phone }}</div>
+        <div class="info-card">
+            <strong>NHIS Number:</strong> {{ student.nhis_number or 'N/A' }}<br>
+            <strong>NHIS Status:</strong> 
+            {% if student.nhis_status == 'Active' %}
+                <span class="badge-active">Active</span>
+            {% elif student.nhis_status == 'Expired' %}
+                <span class="badge-expired">Expired</span>
+            {% else %}
+                <span class="badge-none">{{ student.nhis_status }}</span>
+            {% endif %}
+
+            <br>
+            <button class="verify-link" onclick="toggleModal(true)">🔍 Check NHIS Status Tool</button>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a href="/student_report/{{ student.student_id }}" class="btn-action btn-pdf">📄 Generate PDF Report</a>
+        <a href="/edit_student/{{ student.student_id }}" class="btn-action btn-edit">✏️ Edit Details</a>
+        <a href="/students" class="btn-action btn-back">← Back to List</a>
+    </div>
+
+    <hr style="margin: 25px 0; border: 0; border-top: 1px solid #ccc;">
+
+    <h3>📋 Medical History & Diagnoses</h3>
+    {% if records %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Symptoms</th>
+                    <th>Diagnosis</th>
+                    <th>Treatment</th>
+                    <th>Attending Nurse</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in records %}
+                <tr>
+                    <td>{{ r.date }}</td>
+                    <td>{{ r.symptoms }}</td>
+                    <td>{{ r.diagnosis }}</td>
+                    <td>{{ r.treatment }}</td>
+                    <td>{{ r.nurse }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p style="color: #777;">No medical records found for this student.</p>
+    {% endif %}
+</div>
+
+<div class="modal-overlay" id="nhisModal">
+    <div class="modal-box">
+        <span class="modal-close" onclick="toggleModal(false)">&times;</span>
+        <h3 style="margin-top:0;">📋 Check Card Status</h3>
+        <p style="font-size: 0.95em; color: #495057;">
+            Card Number: <strong>{{ student.nhis_number or 'N/A' }}</strong>
+        </p>
+        <hr>
+        
+        <p><strong>Run status check:</strong></p>
+        <a href="tel:*929%23" class="action-link" style="background:#28a745;">📞 Launch Dialer (*929#)</a>
+        <a href="https://mynhisportal.nhis.gov.gh/" target="_blank" class="action-link">🌐 MyNHIS Web Portal ↗</a>
+
+        <br>
+        <p style="font-size: 0.85em; color: #666; text-align: center;">
+            Need to update this student's status? Use the <strong>Edit Details</strong> button above!
+        </p>
+    </div>
+</div>
+
+<script>
+    function toggleModal(show) {
+        document.getElementById('nhisModal').style.display = show ? 'flex' : 'none';
+    }
+</script>
+
+</body>
+</html>
