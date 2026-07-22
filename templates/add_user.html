@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Add User - Sickbay AI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+{% include 'navigation.html' %}
+
+
+
+<div class="portal-header">
+
+    <h1>➕ Add New User</h1>
+
+    <p>
+        Create a new Sickbay AI account
+    </p>
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h2>
+User Registration
+</h2>
+
+
+
+<form method="POST">
+
+
+<label>
+Username
+</label>
+
+<br>
+
+<input 
+type="text"
+name="username"
+placeholder="Enter username"
+required>
+
+
+<br><br>
+
+
+
+<label>
+Password
+</label>
+
+<br>
+
+<input 
+type="password"
+name="password"
+placeholder="Enter password"
+required>
+
+
+<br><br>
+
+
+
+<label>
+Role
+</label>
+
+<br>
+
+<select name="role">
+
+
+<option value="Nurse">
+Nurse
+</option>
+
+
+<option value="Admin">
+Admin
+</option>
+
+
+</select>
+
+
+
+<br><br>
+
+
+
+<button>
+
+Create User
+
+</button>
+
+
+
+</form>
+
+
+
+
+
+<br>
+
+
+
+<a href="/users">
+
+<button>
+
+⬅ Back to Users
+
+</button>
+
+</a>
+
+
+
+
+</div>
+
+
+
+
+
+<div class="footer">
+
+DEULTIMATE HQ © 2026
+
+<br>
+
+Sickbay AI Health Portal v3.1
+
+</div>
+
+
+
+</body>
+
+</html>
