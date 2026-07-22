@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Symptom Checker</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+{% include 'navigation.html' %}
+
+<div class="card">
+
+<h1>🤖 AI Symptom Checker</h1>
+
+
+<form action="/symptoms" method="POST">
+
+<input 
+name="symptoms"
+placeholder="Enter symptoms"
+required>
+
+
+<button type="submit">
+Analyze
+</button>
+
+</form>
+
+
+<h2>AI Result</h2>
+
+<div class="result">
+    {{ result }}
+</div>
+
+
+<br>
+
+<a href="/">
+Back to Dashboard
+</a>
+
+
+</div>
+
+</body>
+
+</html>
