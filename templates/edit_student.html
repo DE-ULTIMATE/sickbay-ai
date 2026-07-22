@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Student</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+{% include 'navigation.html' %}
+
+
+<div class="card">
+
+<h1>✏ Edit Student</h1>
+
+
+<form method="POST">
+
+
+<label>Name</label>
+<input 
+type="text"
+name="name"
+value="{{ student['name'] }}"
+>
+
+
+<label>Age</label>
+<input
+type="text"
+name="age"
+value="{{ student['age'] }}"
+>
+
+
+<label>Gender</label>
+<input
+type="text"
+name="gender"
+value="{{ student['gender'] }}"
+>
+
+
+<label>Class</label>
+<input
+type="text"
+name="class_name"
+value="{{ student['class_name'] }}"
+>
+
+
+<label>Parent Phone</label>
+<input
+type="text"
+name="phone"
+value="{{ student['parent_phone'] }}"
+>
+
+
+<label>NHIS Number</label>
+<input
+type="text"
+name="nhis_number"
+value="{{ student['nhis_number'] }}"
+>
+
+
+<button type="submit">
+💾 Save Changes
+</button>
+
+
+</form>
+
+
+</div>
+
+
+</body>
+
+</html>
