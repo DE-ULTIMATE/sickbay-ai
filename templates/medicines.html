@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Medicine Store</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+{% include 'navigation.html' %}
+
+<div class="card">
+
+<h1>💊 Medicine Inventory</h1>
+
+
+<form method="POST">
+
+<input 
+name="medicine_name"
+placeholder="Medicine name"
+required>
+
+
+<input 
+name="quantity"
+placeholder="Quantity"
+required>
+
+
+<input 
+name="expiry_date"
+placeholder="Expiry date"
+required>
+
+
+<input 
+name="supplier"
+placeholder="Supplier"
+required>
+
+
+<button type="submit">
+Add Medicine
+</button>
+
+</form>
+
+
+<h2>Available Medicines</h2>
+
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Quantity</th>
+<th>Expiry</th>
+<th>Supplier</th>
+</tr>
+
+
+{% for medicine in medicines %}
+
+<tr>
+
+<td>{{ medicine[1] }}</td>
+
+<td>{{ medicine[2] }}</td>
+
+<td>{{ medicine[3] }}</td>
+
+<td>{{ medicine[4] }}</td>
+
+</tr>
+
+{% endfor %}
+
+
+</table>
+
+
+</div>
+
+</body>
+
+</html>
