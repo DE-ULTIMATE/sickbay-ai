@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Training Center</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+{% include 'navigation.html' %}
+
+
+
+<div class="portal-header">
+
+<h1>🤖 AI Training Center</h1>
+
+<p>
+Sickbay AI Machine Learning Control
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+
+<h2>
+Training Data
+</h2>
+
+
+<h1>
+{{ training_count }}
+</h1>
+
+<p>
+Medical cases available for training
+</p>
+
+
+
+{% if history %}
+
+<h3>
+Last Training
+</h3>
+
+<p>
+Trained by:
+{{ history["trained_by"] }}
+</p>
+
+<p>
+Date:
+{{ history["training_date"] }}
+</p>
+
+<p>
+Status:
+{{ history["status"] }}
+</p>
+
+{% endif %}
+
+
+
+<br>
+
+
+<form action="/train_ai" method="POST">
+
+<button>
+🚀 Train AI Model
+</button>
+
+</form>
+
+
+
+</div>
+
+
+
+</body>
+
+</html>
