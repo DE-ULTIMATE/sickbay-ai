@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Sickbay AI Analytics</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+{% include 'navigation.html' %}
+
+
+
+
+<div class="portal-header">
+
+    <h1>📊 Sickbay AI Analytics</h1>
+
+    <p>
+        Health Data Overview
+    </p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+
+<h2>
+System Statistics
+</h2>
+
+
+
+
+<div class="stats">
+
+
+
+<div class="stat-box">
+
+<h2>
+{{ total_students }}
+</h2>
+
+<p>
+Students
+</p>
+
+</div>
+
+
+
+
+
+<div class="stat-box">
+
+<h2>
+{{ total_records }}
+</h2>
+
+<p>
+Medical Records
+</p>
+
+</div>
+
+
+
+
+
+<div class="stat-box">
+
+<h2>
+{{ total_medicines }}
+</h2>
+
+<p>
+Medicines
+</p>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<h2>
+🤒 Most Common Conditions
+</h2>
+
+
+
+<table>
+
+
+<tr>
+
+<th>
+Condition
+</th>
+
+<th>
+Cases
+</th>
+
+</tr>
+
+
+
+
+{% for condition in common_conditions %}
+
+
+<tr>
+
+
+<td>
+{{ condition["diagnosis"] }}
+</td>
+
+
+
+<td>
+{{ condition["total"] }}
+</td>
+
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+
+</table>
+
+
+
+
+
+
+<br>
+
+
+
+<a href="/">
+
+<button>
+
+🏠 Back to Dashboard
+
+</button>
+
+</a>
+
+
+
+
+</div>
+
+
+
+
+
+
+<div class="footer">
+
+DEULTIMATE HQ © 2026
+
+<br>
+
+Sickbay AI Health Portal v3.2
+
+</div>
+
+
+
+
+</body>
+
+</html>
