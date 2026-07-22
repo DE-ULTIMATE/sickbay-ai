@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Search</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+{% include 'navigation.html' %}
+
+<div class="card">
+
+<h1>🔍 Search Sickbay Data</h1>
+
+
+<form method="POST">
+
+<select name="type">
+
+<option value="student">
+Student
+</option>
+
+<option value="medicine">
+Medicine
+</option>
+
+</select>
+
+
+<input 
+name="query"
+placeholder="Enter ID, name or medicine"
+required>
+
+
+<button>
+Search
+</button>
+
+
+</form>
+
+
+<h2>Results</h2>
+
+
+<table>
+
+{% for item in results %}
+
+<tr>
+
+{% for value in item %}
+
+<td>{{ value }}</td>
+
+{% endfor %}
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+
+<br>
+
+<a href="/">
+Back to Dashboard
+</a>
+
+
+</div>
+
+</body>
+
+</html>
